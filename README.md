@@ -1,8 +1,4 @@
-# Supercake Coding Challenge by YOUR NAME from YOUR COMPANY (if applicable)
-
-⚠️ Important: Please add your name and company (if applicable) above so I can match your submission to your application.
-
-TODO: Customize README to document your solution. Please pay attention to use correct spelling, grammar and formatting. Make the documentation easy to read and follow.
+# Supercake app
 
 ## Getting Started
 
