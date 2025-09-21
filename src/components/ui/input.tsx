@@ -11,7 +11,20 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          "flex rounded-md border bg-background px-3 text-sm file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-50 border-[hsla(var(--input-border))] focus:border-[hsla(var(--input-focus))]",
+          // Layout and sizing
+          "flex rounded-md bg-background px-3",
+          // Typography
+          "font-[var(--font-inter)] font-normal text-[14px] leading-[100%] tracking-[0%]",
+          // File input styling
+          "file:text-sm file:font-medium",
+          // Placeholder styling
+          "placeholder:text-[hsla(var(--input-placeholder))]",
+          // Focus and disabled states
+          "focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          // Border styling
+          "border border-[hsla(var(--input-border))]",
+          "focus:border-[hsla(var(--input-focus))]",
+          "focus:ring-4 focus:ring-[hsla(var(--input-focus-ring-opacity))]",
           className
         )}
         ref={ref}

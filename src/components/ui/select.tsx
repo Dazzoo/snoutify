@@ -17,7 +17,20 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      // Layout and sizing
+      "flex h-10 w-full items-center justify-between rounded-md px-3 py-2",
+      // Background and text
+      "bg-background text-sm placeholder:text-muted-foreground",
+      // Typography
+      "font-[var(--font-inter)] font-medium text-[14px] leading-[100%] tracking-[0%]",
+      // Focus and disabled states
+      "focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+      // Custom styling
+      "[&>span]:line-clamp-1",
+      // Border styling
+      "border border-[hsla(var(--select-border))]",
+      "data-[state=open]:border-[hsla(var(--select-focus-border))]",
+      "data-[state=open]:bg-[hsla(var(--select-focus-bg))]",
       className
     )}
     {...props}
@@ -145,6 +158,6 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 export {
-    Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue
+  Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue
 }
 
