@@ -25,6 +25,7 @@
     --input-border: 213 41% 91%;
     --input-focus: 214 69% 52%;
     --input-focus-ring: 214 69% 52%;
+    --input-placeholder: 215 42% 12%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
   }
@@ -69,6 +70,23 @@
     font-size: 25px;
     line-height: 100%;
     letter-spacing: -3%;
+  }
+  
+  input {
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    border: 1px solid hsla(var(--input-border));
+  }
+  
+  input::placeholder {
+    color: hsla(var(--input-placeholder), 1);
+  }
+  
+  input:focus {
+    border-color: hsla(var(--input-focus));
   }
 
 }
