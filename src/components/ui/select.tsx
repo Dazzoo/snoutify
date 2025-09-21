@@ -18,9 +18,9 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       // Layout and sizing
-      "flex h-10 w-full items-center justify-between rounded-md px-3 py-2",
+      "flex h-10 w-full items-center justify-between rounded-md px-3 py-2 custom-select-placeholder",
       // Background and text
-      "bg-background text-sm placeholder:text-muted-foreground",
+      "bg-background text-sm",
       // Typography
       "font-[var(--font-inter)] font-medium text-[14px] leading-[100%] tracking-[0%]",
       // Focus and disabled states
@@ -31,8 +31,13 @@ const SelectTrigger = React.forwardRef<
       "border border-[hsla(var(--select-border))]",
       "data-[state=open]:border-[hsla(var(--select-focus-border))]",
       "data-[state=open]:bg-[hsla(var(--select-focus-bg))]",
+      // Shadow styling
+      "shadow-[0_0_4px_-1px_hsla(0,0%,0%,0.02),0_1px_1px_0_hsla(0,0%,0%,0.06)]",
       className
     )}
+    style={{
+      color: 'hsla(var(--select-placeholder))'
+    }}
     {...props}
   >
     {children}

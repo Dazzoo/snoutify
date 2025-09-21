@@ -30,6 +30,7 @@
             --select-border: 212 40% 91%;
             --select-focus-bg: 218 21% 93%;
             --select-focus-border: 212 30% 88%;
+            --select-placeholder: 215 42% 12% / 0.85;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
   }

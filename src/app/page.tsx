@@ -13,7 +13,7 @@ export default function Home() {
           { value: "inactive", label: "Inactive" },
         ]}
         dropdownPlaceholder="Pets"
-        dropdownValue="all"
+        dropdownValue={''}
         onDropdownChange={(value) => console.log(value)}
       />
     </div>
