@@ -20,17 +20,20 @@
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-            --input-border: 213 41% 91%;
-            --input-focus: 214 69% 52%;
-            --input-focus-ring: 214 69% 52%;
-            --input-focus-ring-opacity: 214 69% 52% / 0.2;
-            --input-placeholder: 215 42% 12% / 0.5;
-            --select-border: 212 40% 91%;
-            --select-focus-bg: 218 21% 93%;
-            --select-focus-border: 212 30% 88%;
-            --select-placeholder: 215 42% 12% / 0.85;
+    --border-default: 214.3 31.8% 91.4%;
+    --border-light: 213 41% 91%;
+    --border-medium: 212 40% 91%;
+    --border-dark: 212 30% 88%;
+    --input-bg: 214.3 31.8% 91.4%;
+    --input-focus: 214 69% 52%;
+    --input-focus-ring: 214 69% 52% / 0.2;
+    --input-placeholder: 215 42% 12% / 0.5;
+    --dark-blue: 214 42% 12% / 1;
+    --normal-blue: 214 84% 46% / 1;
+    --dimmed-blue: 214 85% 43% / 1;
+    --select-bg: 218 21% 93%;
+    --select-border-open: 212 30% 88%;
+    --select-placeholder: 215 42% 12% / 0.85;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
   }
@@ -52,8 +55,8 @@
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border-default: 217.2 32.6% 17.5%;
+    --input-bg: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
 }
@@ -64,17 +67,13 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-inter), sans-serif;
+    @apply font-inter;
   }
 }
 
 @layer components {
   h1 {
-    font-family: var(--font-inter), sans-serif;
-    font-weight: 600;
-    font-size: 25px;
-    line-height: 100%;
-    letter-spacing: -3%;
+    @apply font-inter text-h1 font-h1 tracking-h1;
   }
   
   .bb { /* helper class to add a black border for debugging */
