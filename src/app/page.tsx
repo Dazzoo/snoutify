@@ -7,14 +7,6 @@ export default function Home() {
       <SearchCard 
         title="Customers and Pets"
         placeholder="Search by ID, name, email or phone"
-        dropdownOptions={[
-          { value: "all", label: "All" },
-          { value: "active", label: "Active" },
-          { value: "inactive", label: "Inactive" },
-        ]}
-        dropdownPlaceholder="Pets"
-        dropdownValue={''}
-        onDropdownChange={(value) => console.log(value)}
       />
     </div>
   );

@@ -1,23 +1,16 @@
 "use client";
 
+import { FilterDropdown } from "@/components/FilterDropdown";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { ANIMAL_OPTIONS } from "@/constants/animals";
+import Image from "next/image";
+import { useState } from "react";
 
 interface SearchCardProps {
   title: string;
   placeholder: string;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
-  dropdownValue?: string;
-  onDropdownChange?: (value: string) => void;
-  dropdownOptions?: { value: string; label: string }[];
-  dropdownPlaceholder?: string;
   className?: string;
 }
 
@@ -26,16 +19,27 @@ export function SearchCard({
   placeholder,  
   searchValue = "", 
   onSearchChange,
-  dropdownValue = "",
-  onDropdownChange,
-  dropdownOptions = [],
-  dropdownPlaceholder = "Filter",
   className = ""
 }: SearchCardProps) {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState("any");
+
+  const handleAnimalSelect = (optionId: string) => {
+    setSelectedAnimal(optionId);
+  };
+
+  const handleReset = () => {
+    setSelectedAnimal("any");
+  };
+
+  const handleApply = () => {
+    setIsFilterOpen(false);
+    // Handle filter application logic here
+  };
   return (
     <div className={`w-full bg-card px-9 py-8 ${className}`}>
       <div className="max-w-4xl ">
-        <h1 className="text-foreground mb-4">
+        <h1 className="mb-4 text-dark-blue">
           {title}
         </h1>
         <div className="flex gap-4 items-center">
@@ -55,18 +59,31 @@ export function SearchCard({
             />
           </div>
           
-          <Select value={dropdownValue} onValueChange={onDropdownChange}>
-            <SelectTrigger className="select-trigger w-[122px] h-[40px] rounded-xl">
-              <SelectValue placeholder={dropdownPlaceholder} />
-            </SelectTrigger>
-            <SelectContent>
-              {dropdownOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="relative text-dark-blue">
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className={`w-[122px] h-[40px] rounded-xl flex items-center justify-between pl-5 pr-3 border  ${
+                isFilterOpen 
+                  ? 'bg-select-bg border-select-border-open' 
+                  : 'bg-background border-medium shadow-[0_0_4px_-1px_hsla(0,0%,0%,0.02),0_1px_1px_0_hsla(0,0%,0%,0.06)]'
+              }`}
+            >
+              <span className=" font-medium text-[14px] leading-[100%] tracking-[0%]">
+                {selectedAnimal === "any" ? "Pets" : ANIMAL_OPTIONS.find(opt => opt.id === selectedAnimal)?.label || "Pets"}
+              </span>
+              <Image src="images/icons/chevron-down.svg" alt="chevron-down" width={16} height={16} />
+            </button>
+            
+            <FilterDropdown
+              isOpen={isFilterOpen}
+              onClose={() => setIsFilterOpen(false)}
+              options={ANIMAL_OPTIONS}
+              selectedOption={selectedAnimal}
+              onOptionSelect={handleAnimalSelect}
+              onReset={handleReset}
+              onApply={handleApply}
+            />
+          </div>
         </div>
       </div>
     </div>
