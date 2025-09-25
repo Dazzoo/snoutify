@@ -1,15 +1,29 @@
 'use client';
 import { CustomerResults } from "@/components/CustomerResults";
 import { SearchCard } from "@/components/SearchCard";
-import { useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
   const [selectedSpecies, setSelectedSpecies] = useState("");
+  const [appliedFilters, setAppliedFilters] = useState({ searchText: "", species: "" });
+  
+  // Debounce search text with 300ms delay
+  const debouncedSearchText = useDebounce(searchText, 300);
+
+  // Update applied filters when debounced search text changes
+  useEffect(() => {
+    setAppliedFilters(prev => ({
+      ...prev,
+      searchText: debouncedSearchText
+    }));
+  }, [debouncedSearchText]);
 
   const handleFiltersChange = (searchText: string, species: string) => {
     setSearchText(searchText);
     setSelectedSpecies(species);
+    setAppliedFilters({ searchText, species });
   };
 
   const handleSearchChange = (value: string) => {
@@ -27,8 +41,8 @@ export default function Home() {
         onFiltersChange={handleFiltersChange}
       />
       <CustomerResults
-        searchText={searchText}
-        selectedSpecies={selectedSpecies}
+        searchText={appliedFilters.searchText}
+        selectedSpecies={appliedFilters.species}
       />
     </div>
   );

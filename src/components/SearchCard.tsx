@@ -57,9 +57,7 @@ export function SearchCard({
 
   const handleSearchChange = (value: string) => {
     onSearchChange?.(value);
-    const selectedOption = ANIMAL_OPTIONS.find(opt => opt.id === selectedAnimal);
-    const apiValue = selectedOption?.value || "";
-    onFiltersChange?.(value, apiValue);
+    // Don't call onFiltersChange here - let the parent handle debouncing
   };
   return (
     <div className={`w-full bg-card px-9 py-8 ${className}`}>
