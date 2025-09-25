@@ -32,10 +32,16 @@ export function FilterDropdown({
   onApply,
   className = ""
 }: FilterDropdownProps) {
-  if (!isOpen) return null;
-
   return (
-    <div className={`absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-medium z-50 min-w-[22rem] ${className}`}>
+    <div className={`
+      absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-medium z-50 min-w-[22rem]
+      transition-all duration-200 ease-out transform origin-top
+      ${isOpen 
+        ? 'opacity-100 scale-y-100 translate-y-0' 
+        : 'opacity-0 scale-y-95 translate-y-[-8px] pointer-events-none'
+      }
+      ${className}
+    `}>
       {/* Filter Options */}
       <div className="pl-4 pb-4 pr-4 pt-5">
         <div className="flex flex-wrap gap-2">
