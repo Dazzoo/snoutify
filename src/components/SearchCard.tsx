@@ -4,13 +4,15 @@ import { FilterDropdown } from "@/components/FilterDropdown";
 import { Input } from "@/components/ui/input";
 import { ANIMAL_OPTIONS } from "@/constants/animals";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SearchCardProps {
   title: string;
   placeholder: string;
   searchValue?: string;
+  selectedSpecies?: string;
   onSearchChange?: (value: string) => void;
+  onFiltersChange?: (searchText: string, species: string) => void;
   className?: string;
 }
 
@@ -18,11 +20,25 @@ export function SearchCard({
   title, 
   placeholder,  
   searchValue = "", 
+  selectedSpecies = "",
   onSearchChange,
+  onFiltersChange,
   className = ""
 }: SearchCardProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedAnimal, setSelectedAnimal] = useState("any");
+  
+  // Convert API value back to animal ID for internal state
+  const getAnimalIdFromValue = (value: string) => {
+    if (!value) return "any";
+    return ANIMAL_OPTIONS.find(opt => opt.value === value)?.id || "any";
+  };  
+  
+  const [selectedAnimal, setSelectedAnimal] = useState(getAnimalIdFromValue(selectedSpecies));
+
+  // Sync selectedAnimal when selectedSpecies prop changes
+  useEffect(() => {
+    setSelectedAnimal(getAnimalIdFromValue(selectedSpecies));
+  }, [selectedSpecies]);
 
   const handleAnimalSelect = (optionId: string) => {
     setSelectedAnimal(optionId);
@@ -34,7 +50,16 @@ export function SearchCard({
 
   const handleApply = () => {
     setIsFilterOpen(false);
-    // Handle filter application logic here
+    const selectedOption = ANIMAL_OPTIONS.find(opt => opt.id === selectedAnimal);
+    const apiValue = selectedOption?.value || "";
+    onFiltersChange?.(searchValue, apiValue);
+  };
+
+  const handleSearchChange = (value: string) => {
+    onSearchChange?.(value);
+    const selectedOption = ANIMAL_OPTIONS.find(opt => opt.id === selectedAnimal);
+    const apiValue = selectedOption?.value || "";
+    onFiltersChange?.(value, apiValue);
   };
   return (
     <div className={`w-full bg-card px-9 py-8 ${className}`}>
@@ -54,7 +79,7 @@ export function SearchCard({
               autoComplete="off"
               placeholder={placeholder}
               value={searchValue}
-              onChange={(e) => onSearchChange?.(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full sm:w-[312px] h-[40px] pl-10"
             />
           </div>
