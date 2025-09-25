@@ -16,6 +16,19 @@ A responsive web app for managing customers and their pets with search and filte
 - React Query for data fetching
 - Radix UI components
 
+## Project Structure
+
+```
+src/
+├── app/              # Next.js pages and layouts
+├── components/       # React components (UI, cards, forms)
+├── constants/        # App constants (animals data)
+├── hooks/           # Custom React hooks (debounce, API)
+├── providers/       # React context providers
+├── services/        # API service functions
+└── types/           # TypeScript type definitions
+```
+
 ## Getting Started
 
 ```bash
@@ -39,6 +52,7 @@ GET /api/customers?searchText=john&species=dog
 ## Development
 
 ```bash
+npm install          # Install project dependencies
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run lint         # Run ESLint
