@@ -99,7 +99,6 @@ export function SearchCard({
             
             <FilterDropdown
               isOpen={isFilterOpen}
-              onClose={() => setIsFilterOpen(false)}
               options={ANIMAL_OPTIONS}
               selectedOption={selectedAnimal}
               onOptionSelect={handleAnimalSelect}

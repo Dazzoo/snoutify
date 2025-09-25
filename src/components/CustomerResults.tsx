@@ -129,7 +129,7 @@ export function CustomerResults({
             <div className="flex flex-wrap gap-2 text-sm">
               {searchText && (
                 <span className="bg-primary/10 text-primary px-3 py-1 rounded-full">
-                  Search: "{searchText}"
+                  Search: &quot;{searchText}&quot;
                 </span>
               )}
               {selectedSpecies && selectedSpecies !== '' && (

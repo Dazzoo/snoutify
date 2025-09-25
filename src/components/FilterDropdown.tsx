@@ -13,7 +13,6 @@ interface FilterOption {
 
 interface FilterDropdownProps {
   isOpen: boolean;
-  onClose: () => void;
   options: FilterOption[];
   selectedOption: string;
   onOptionSelect: (optionId: string) => void;
@@ -24,7 +23,6 @@ interface FilterDropdownProps {
 
 export function FilterDropdown({
   isOpen,
-  onClose,
   options,
   selectedOption,
   onOptionSelect,
