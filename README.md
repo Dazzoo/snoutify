@@ -1,4 +1,4 @@
-# Supercake - Customer and Pet Management
+# Supercake - Customer and Pet Management by Yurii Shushanskyi from CarsXE API
 
 A responsive web app for managing customers and their pets with search and filtering capabilities.
 
