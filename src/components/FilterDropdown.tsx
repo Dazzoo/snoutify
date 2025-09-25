@@ -34,7 +34,8 @@ export function FilterDropdown({
 }: FilterDropdownProps) {
   return (
     <div className={`
-      absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-medium z-50 min-w-[22rem]
+      absolute top-full left-0 right-0 sm:left-auto sm:right-auto mt-1 bg-white rounded-lg shadow-lg border border-medium z-50 
+       sm:min-w-[22rem] max-w-[calc(100vw-2rem)] sm:max-w-none
       transition-all duration-200 ease-out transform origin-top
       ${isOpen 
         ? 'opacity-100 scale-y-100 translate-y-0' 
@@ -81,17 +82,17 @@ export function FilterDropdown({
 
       {/* Action Buttons */}
       <div className="p-4">
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button
             variant="secondary"
-            className="w-[145px]"
+            className="w-full sm:w-[145px]"
             onClick={onReset}
           >
             Reset
           </Button>
           <Button
             variant="primary"
-            className="w-[145px]"
+            className="w-full sm:w-[145px]"
             onClick={onApply}
           >
             Apply Filters
