@@ -23,9 +23,9 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
 
   return (
     <div className={`bg-white rounded-lg border border-medium p-4 shadow-[0_0_4px_-1px_hsla(0,0%,0%,0.02),0_1px_1px_0_hsla(0,0%,0%,0.06)] ${className}`}>
-      <div className="flex items-center gap-6">
-        {/* Pets Section - Fixed width for consistency */}
-        <div className="w-32 flex-shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+        {/* Pets Section - Responsive width */}
+        <div className="w-full sm:w-32 flex-shrink-0">
           {customer.pets.length > 0 ? (
             <div className="flex flex-col gap-1">
               <div className="text-center">
@@ -33,7 +33,7 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
                   {customer.pets.length} pet{customer.pets.length !== 1 ? 's' : ''}
                 </span>
               </div>
-              <div className="flex flex-wrap gap-1 justify-center">
+              <div className="flex flex-wrap gap-1 justify-center sm:justify-center">
                 {customer.pets.map((pet) => {
                   const iconPath = getPetIcon(pet.species);
                   const { width, height } = getPetIconDimensions(pet.species);
@@ -65,18 +65,18 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
           )}
         </div>
 
-        {/* Border Separator */}
-        <div className="w-px h-12 bg-border-medium"></div>
+        {/* Border Separator - Hidden on mobile, visible on desktop */}
+        <div className="hidden sm:block w-px h-12 bg-border-medium"></div>
 
         {/* Customer Info */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-4 mb-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
             <h3 className="text-base font-semibold text-dark-blue truncate">{customer.name}</h3>
-            <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+            <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded self-start sm:self-auto">
               ID: {customer.id}
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex flex-col gap-2 text-sm text-muted-foreground">
             <p className="flex items-center gap-2">
               <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
