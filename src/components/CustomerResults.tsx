@@ -84,13 +84,35 @@ export function CustomerResults({
     );
   }
 
-  // Empty state
-  if (customers.length === 0) {
-    const hasFilters = searchText || (selectedSpecies && selectedSpecies !== '');
-    
-    return (
-      <div className={`w-full bg-card px-9 py-8 ${className}`}>
-        <div className="max-w-4xl">
+  const hasFilters = searchText || (selectedSpecies && selectedSpecies !== '');
+
+  // Results display
+  return (
+    <div className={`w-full bg-card px-9 py-8 ${className}`}>
+      <div className="">
+        {/* Results header */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold text-dark-blue mb-2">
+            Customers: {customers.length}
+          </h2>
+          {(searchText || (selectedSpecies && selectedSpecies !== '')) && (
+            <div className="flex flex-wrap gap-2 text-sm">
+              {searchText && (
+                <span className="bg-primary/10 text-primary px-3 py-1 rounded-full">
+                  Search: &quot;{searchText}&quot;
+                </span>
+              )}
+              {selectedSpecies && selectedSpecies !== '' && (
+                <span className="bg-primary/10  text-secondary-foreground px-3 py-1 rounded-full">
+                  Species: {ANIMAL_OPTIONS.find(opt => opt.value === selectedSpecies)?.label || selectedSpecies}
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Customer cards list or empty state */}
+        {customers.length === 0 ? (
           <div className="flex items-center justify-center py-12">
             <div className="flex flex-col items-center gap-4 text-center">
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
@@ -111,42 +133,13 @@ export function CustomerResults({
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Results display
-  return (
-    <div className={`w-full bg-card px-9 py-8 ${className}`}>
-      <div className="">
-        {/* Results header */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold text-dark-blue mb-2">
-            Customers ({customers.length})
-          </h2>
-          {(searchText || (selectedSpecies && selectedSpecies !== '')) && (
-            <div className="flex flex-wrap gap-2 text-sm">
-              {searchText && (
-                <span className="bg-primary/10 text-primary px-3 py-1 rounded-full">
-                  Search: &quot;{searchText}&quot;
-                </span>
-              )}
-              {selectedSpecies && selectedSpecies !== '' && (
-                <span className="bg-primary/10  text-secondary-foreground px-3 py-1 rounded-full">
-                  Species: {ANIMAL_OPTIONS.find(opt => opt.value === selectedSpecies)?.label || selectedSpecies}
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Customer cards list */}
-        <div className="flex flex-col gap-2">
-          {customers.map((customer) => (
-            <CustomerCard key={customer.id} customer={customer} />
-          ))}
-        </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {customers.map((customer) => (
+              <CustomerCard key={customer.id} customer={customer} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
