@@ -55,5 +55,53 @@ export const ANIMAL_OPTIONS: AnimalOption[] = [
     iconPath: "/images/icons/animals/rat.svg",
     iconWidth: 14.68,
     iconHeight: 14.33
+  },
+  {
+    id: "rabbits",
+    label: "Rabbits",
+    value: "rabbit",
+    iconPath: "/images/icons/animals/rabbit.svg",
+    iconWidth: 14,
+    iconHeight: 14
+  },
+  {
+    id: "fish",
+    label: "Fish",
+    value: "fish",
+    iconPath: "/images/icons/animals/fish.svg",
+    iconWidth: 16,
+    iconHeight: 12
+  },
+  {
+    id: "guinea_pigs",
+    label: "Guinea Pigs",
+    value: "guinea_pig",
+    iconPath: "/images/icons/animals/guinea_pig.svg",
+    iconWidth: 14,
+    iconHeight: 14
+  },
+  {
+    id: "turtles",
+    label: "Turtles",
+    value: "turtle",
+    iconPath: "/images/icons/animals/turtle.svg",
+    iconWidth: 16,
+    iconHeight: 14
+  },
+  {
+    id: "snakes",
+    label: "Snakes",
+    value: "snake",
+    iconPath: "/images/icons/animals/snake.svg",
+    iconWidth: 16,
+    iconHeight: 8
+  },
+  {
+    id: "lizards",
+    label: "Lizards",
+    value: "lizard",
+    iconPath: "/images/icons/animals/lizard.svg",
+    iconWidth: 14,
+    iconHeight: 14
   }
 ];
