@@ -46,6 +46,8 @@ export function SearchCard({
 
   const handleReset = () => {
     setSelectedAnimal("any");
+    setIsFilterOpen(false);
+    onFiltersChange?.(searchValue, "");
   };
 
   const handleApply = () => {

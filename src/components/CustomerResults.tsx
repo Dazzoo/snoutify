@@ -133,7 +133,7 @@ export function CustomerResults({
                 </span>
               )}
               {selectedSpecies && selectedSpecies !== '' && (
-                <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
+                <span className="bg-primary/10  text-secondary-foreground px-3 py-1 rounded-full">
                   Species: {ANIMAL_OPTIONS.find(opt => opt.value === selectedSpecies)?.label || selectedSpecies}
                 </span>
               )}

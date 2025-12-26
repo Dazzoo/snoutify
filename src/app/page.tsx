@@ -2,6 +2,7 @@
 import { CustomerResults } from "@/components/CustomerResults";
 import { SearchCard } from "@/components/SearchCard";
 import { useDebounce } from "@/hooks/useDebounce";
+import { QueryProvider } from "@/providers/QueryProvider";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
 
   return (
     <div className="w-full">
+      <QueryProvider>
       <SearchCard 
         title="Customers and Pets"
         placeholder="Search by ID, name, email or phone"
@@ -44,6 +46,7 @@ export default function Home() {
         searchText={appliedFilters.searchText}
         selectedSpecies={appliedFilters.species}
       />
+      </QueryProvider>
     </div>
   );
 }
