@@ -23,6 +23,9 @@ export async function GET(request: Request) {
       ?.split(",")
       .map((s) => s.trim())
       .filter(Boolean) || [];
+  
+  const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+  const pageSize = Math.max(1, parseInt(searchParams.get("pageSize") || "10", 10));
 
   let filteredCustomers: Customer[] = data.customers;
 
@@ -47,9 +50,24 @@ export async function GET(request: Request) {
     );
   }
 
-  return new Response(JSON.stringify({ customers: filteredCustomers }), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const total = filteredCustomers.length;
+  const totalPages = Math.ceil(total / pageSize);
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedCustomers = filteredCustomers.slice(startIndex, endIndex);
+
+  return new Response(
+    JSON.stringify({
+      customers: paginatedCustomers,
+      total,
+      page,
+      pageSize,
+      totalPages,
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }

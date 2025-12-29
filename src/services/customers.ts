@@ -11,13 +11,17 @@ export async function fetchCustomers(filters: CustomerFilters = {}): Promise<Cus
     searchParams.append('species', filters.species);
   }
 
-  const url = `/api/customers${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+  const page = filters.page ?? 1;
+  const pageSize = filters.pageSize ?? 10;
+  searchParams.append('page', page.toString());
+  searchParams.append('pageSize', pageSize.toString());
+
+  const url = `/api/customers?${searchParams.toString()}`;
   
   const response = await fetch(url);
   
   if (!response.ok) {
     const error = new Error(`Failed to fetch customers: ${response.status} ${response.statusText}`);
-    // Add status to error for better error handling in React Query
     (error as Error & { status: number }).status = response.status;
     throw error;
   }

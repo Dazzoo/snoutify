@@ -12,11 +12,22 @@ export interface Customer {
   pets: Pet[];
 }
 
+export interface PaginationParams {
+  page: number;
+  pageSize: number;
+}
+
 export interface CustomersResponse {
   customers: Customer[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
 }
 
 export interface CustomerFilters {
   searchText?: string;
   species?: string;
+  page?: number;
+  pageSize?: number;
 }
