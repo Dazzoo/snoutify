@@ -36,10 +36,12 @@ export function CustomerResults({
     filters.species = selectedSpecies;
   }
 
-  const { data, isLoading, error, isError } = useCustomers(filters);
+  const { data, isLoading, isFetching, error, isError } = useCustomers(filters);
   const customers = data?.customers || [];
   const total = data?.total || 0;
   const totalPages = data?.totalPages || 0;
+  
+  const showSkeleton = isLoading || isFetching;
 
   useEffect(() => {
     setPage(1);
@@ -54,64 +56,10 @@ export function CustomerResults({
     setPageSize(newPageSize);
     setPage(1);
   };
-  
-  // Loading state
-  if (isLoading) {
-    return (
-      <div className={`w-full bg-card px-9 py-8 ${className}`}>
-        <div className="">
-          {/* Results header skeleton */}
-          <div className="mb-6">
-            <div className="h-6 bg-muted rounded w-48 mb-2 animate-pulse"></div>
-            {(searchText || (selectedSpecies && selectedSpecies !== '')) && (
-              <div className="flex flex-wrap gap-2 text-sm">
-                {searchText && (
-                  <div className="h-6 bg-muted rounded-full w-24 animate-pulse"></div>
-                )}
-                {selectedSpecies && selectedSpecies !== '' && (
-                  <div className="h-6 bg-muted rounded-full w-32 animate-pulse"></div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Skeleton customer cards */}
-          <CustomerCardsSkeleton count={pageSize} />
-        </div>
-      </div>
-    );
-  }
-
-  // Error state
-  if (isError) {
-    return (
-      <div className={`w-full bg-card px-9 py-8 ${className}`}>
-        <div className="max-w-4xl">
-          <div className="flex items-center justify-center py-12">
-            <div className="flex flex-col items-center gap-4 text-center">
-              <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Error loading customers</h3>
-                <p className="text-muted-foreground text-sm">{error?.message || 'An unexpected error occurred'}</p>
-              </div>
-              <button 
-                onClick={() => window.location.reload()} 
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm"
-              >
-                Try Again
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const hasFilters = searchText || (selectedSpecies && selectedSpecies !== '');
+  
+  const showPagination = totalPages > 0;
 
   const renderFilterBadges = () => {
     if (!hasFilters) return null;
@@ -132,28 +80,76 @@ export function CustomerResults({
     );
   };
 
-  const renderEmptyState = () => (
-    <div className="flex items-center justify-center py-12">
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
-          <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+  const renderContent = () => {
+    if (isError) {
+      return (
+        <div className="flex items-center justify-center py-12">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-1">Error loading customers</h3>
+              <p className="text-muted-foreground text-sm">{error?.message || 'An unexpected error occurred'}</p>
+            </div>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
-        <div>
-          <h3 className="text-lg font-semibold text-foreground mb-1">
-            {hasFilters ? 'No customers found' : 'No customers available'}
-          </h3>
-          <p className="text-muted-foreground text-sm">
-            {hasFilters 
-              ? 'Try adjusting your search criteria or filters to find customers.'
-              : 'There are currently no customers in the system.'
-            }
-          </p>
+      );
+    }
+
+    if (customers.length === 0) {
+      return (
+        <div className="flex items-center justify-center py-12">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-1">
+                {hasFilters ? 'No customers found' : 'No customers available'}
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                {hasFilters 
+                  ? 'Try adjusting your search criteria or filters to find customers.'
+                  : 'There are currently no customers in the system.'
+                }
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  );
+      );
+    }
+
+    return (
+      <>
+        <div className="flex flex-col gap-2 mb-6">
+          {customers.map((customer) => (
+            <CustomerCard key={customer.id} customer={customer} />
+          ))}
+        </div>
+        {showPagination && (
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            pageSize={pageSize}
+            total={total}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+          />
+        )}
+      </>
+    );
+  };
 
   return (
     <div className={`w-full bg-card px-9 py-8 ${className}`}>
@@ -162,9 +158,9 @@ export function CustomerResults({
         <div className="mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-4 mb-2">
             <h2 className="text-xl font-semibold text-dark-blue whitespace-nowrap">
-              Customers: {total}
+              Customers: {total || 0}
             </h2>
-            {totalPages > 0 && (
+            {showPagination && (
               <div className="flex-1 lg:flex-initial min-w-0">
                 <Pagination
                   currentPage={page}
@@ -181,27 +177,11 @@ export function CustomerResults({
           {renderFilterBadges()}
         </div>
 
-        {/* Customer cards list or empty state */}
-        {customers.length === 0 ? (
-          renderEmptyState()
+        {/* Content area: loading, error, empty, or customer cards */}
+        {showSkeleton ? (
+          <CustomerCardsSkeleton count={pageSize} />
         ) : (
-          <>
-            <div className="flex flex-col gap-2 mb-6">
-              {customers.map((customer) => (
-                <CustomerCard key={customer.id} customer={customer} />
-              ))}
-            </div>
-            {totalPages > 0 && (
-              <Pagination
-                currentPage={page}
-                totalPages={totalPages}
-                pageSize={pageSize}
-                total={total}
-                onPageChange={handlePageChange}
-                onPageSizeChange={handlePageSizeChange}
-              />
-            )}
-          </>
+          renderContent()
         )}
       </div>
     </div>
