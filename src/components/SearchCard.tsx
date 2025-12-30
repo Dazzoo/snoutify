@@ -65,9 +65,9 @@ export function SearchCard({
     // Don't call onFiltersChange here - let the parent handle debouncing
   };
   return (
-    <div className={`w-full bg-card px-9 py-8 ${className}`}>
+    <div className={`w-full bg-white rounded-xl border border-gray-200/60 px-9 py-8 shadow-sm ${className}`}>
       <div className="w-full">
-        <h1 className="mb-4 text-dark-blue">
+        <h1 className="mb-6 text-dark-blue text-2xl font-bold">
           {title}
         </h1>
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center sm:justify-between">
@@ -84,17 +84,17 @@ export function SearchCard({
                 placeholder={placeholder}
                 value={searchValue}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full sm:w-[312px] h-[40px] pl-10"
+                className="w-full sm:w-[312px] h-[40px] pl-10 border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
               />
             </div>
             
             <div className="relative text-dark-blue w-full sm:w-auto">
               <button
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className={`w-full sm:w-[122px] h-[40px] rounded-xl flex items-center justify-between pl-5 pr-3 border  ${
+                  className={`w-full sm:w-[122px] h-[40px] rounded-xl flex items-center justify-between pl-5 pr-3 border transition-all ${
                   isFilterOpen 
-                    ? 'bg-select-bg border-select-border-open' 
-                    : 'bg-background border-medium shadow-[0_0_4px_-1px_hsla(0,0%,0%,0.02),0_1px_1px_0_hsla(0,0%,0%,0.06)]'
+                    ? 'bg-select-bg border-select-border-open shadow-md' 
+                    : 'bg-background border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300'
                 }`}
               >
                 <span className=" font-medium text-[14px] leading-[100%] tracking-[0%]">

@@ -29,7 +29,7 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
   };
 
   return (
-    <div className={`bg-white rounded-lg border border-medium p-4 shadow-[0_0_4px_-1px_hsla(0,0%,0%,0.02),0_1px_1px_0_hsla(0,0%,0%,0.06)] ${className}`}>
+    <div className={`bg-white rounded-xl border border-gray-200/60 p-5 shadow-sm hover:shadow-md transition-all duration-200 hover:border-gray-300/80 ${className}`}>
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
         {/* Pets Section - Responsive width */}
         <div className="w-full sm:w-32 flex-shrink-0">
@@ -46,7 +46,7 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
                   const { width, height } = getPetIconDimensions(pet.species);
                   
                   return (
-                    <div key={pet.id} className="flex items-center gap-1 px-2 py-1 bg-muted rounded border border-light max-w-[120px]">
+                    <div key={pet.id} className="flex items-center gap-1.5 px-2.5 py-1.5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100/60 max-w-[120px] shadow-sm hover:shadow transition-shadow">
                       {iconPath && (
                         <Image
                           src={iconPath}
@@ -56,7 +56,7 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
                           className="w-[14px] h-[14px] flex-shrink-0"
                         />
                       )}
-                      <span className="text-xs text-dark-blue break-all">
+                      <span className="text-xs text-dark-blue break-all font-medium">
                         {pet.name}
                       </span>
                     </div>
@@ -75,13 +75,13 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
         </div>
 
         {/* Border Separator - Hidden on mobile, visible on desktop */}
-        <div className="hidden sm:block w-px h-12 bg-border-medium"></div>
+        <div className="hidden sm:block w-px h-12 bg-gradient-to-b from-transparent via-gray-200 to-transparent"></div>
 
         {/* Customer Info */}
         <div className="flex-1 min-w-0">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3">
             <h3 className="text-base font-semibold text-dark-blue truncate">{customer.name}</h3>
-            <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded self-start sm:self-auto">
+            <div className="text-xs text-muted-foreground bg-gray-100 px-2.5 py-1 rounded-md self-start sm:self-auto border border-gray-200/50">
               ID: {customer.id}
             </div>
           </div>

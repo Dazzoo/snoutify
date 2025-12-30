@@ -67,12 +67,12 @@ export function CustomerResults({
     return (
       <div className="flex flex-wrap gap-2 text-sm mt-2">
         {searchText && (
-          <span className="bg-primary/10 text-primary px-3 py-1 rounded-full">
+          <span className="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-sm font-medium border border-blue-200/50">
             Search: &quot;{searchText}&quot;
           </span>
         )}
         {selectedSpecies && selectedSpecies !== '' && (
-          <span className="bg-primary/10 text-secondary-foreground px-3 py-1 rounded-full">
+          <span className="bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full text-sm font-medium border border-indigo-200/50">
             Species: {ANIMAL_OPTIONS.find(opt => opt.value === selectedSpecies)?.label || selectedSpecies}
           </span>
         )}
@@ -152,12 +152,12 @@ export function CustomerResults({
   };
 
   return (
-    <div className={`w-full bg-card px-9 py-8 ${className}`}>
+    <div className={`w-full bg-white rounded-xl border border-gray-200/60 px-9 py-8 shadow-sm ${className}`}>
       <div className="">
         {/* Results header with pagination */}
         <div className="mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-4 mb-2">
-            <h2 className="text-xl font-semibold text-dark-blue whitespace-nowrap">
+            <h2 className="text-xl font-bold text-dark-blue whitespace-nowrap">
               Customers: {total || 0}
             </h2>
             {showPagination && (
