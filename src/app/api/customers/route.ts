@@ -22,12 +22,14 @@ export async function GET(request: Request) {
         name,
         email,
         phone,
+        created_at,
         pets (
           id,
           name,
           species
         )
-      `, { count: 'exact' });
+      `, { count: 'exact' })
+      .order('created_at', { ascending: false });
 
     if (searchText) {
       query = query.or(`id.ilike.%${searchText}%,name.ilike.%${searchText}%,email.ilike.%${searchText}%,phone.ilike.%${searchText}%`);

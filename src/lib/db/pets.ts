@@ -4,9 +4,7 @@ import { supabase } from './client';
 export async function generatePetId(): Promise<string> {
   const { data, error } = await supabase
     .from('pets')
-    .select('id')
-    .order('id', { ascending: false })
-    .limit(1);
+    .select('id');
 
   if (error) {
     throw new Error(`Failed to generate pet ID: ${error.message}`);
@@ -16,15 +14,18 @@ export async function generatePetId(): Promise<string> {
     return 'p1';
   }
 
-  const lastId = data[0].id;
-  const match = lastId.match(/^p(\d+)$/);
-
-  if (!match) {
-    return 'p1';
+  let maxNumber = 0;
+  for (const pet of data) {
+    const match = pet.id.match(/^p(\d+)$/);
+    if (match) {
+      const number = parseInt(match[1], 10);
+      if (number > maxNumber) {
+        maxNumber = number;
+      }
+    }
   }
 
-  const nextNumber = parseInt(match[1], 10) + 1;
-  return `p${nextNumber}`;
+  return `p${maxNumber + 1}`;
 }
 
 export async function createPet(data: {

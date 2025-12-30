@@ -1,4 +1,4 @@
-import { CustomerFilters, CustomersResponse } from '@/types/customer';
+import { Customer, CustomerFilters, CustomersResponse } from '@/types/customer';
 
 export async function fetchCustomers(filters: CustomerFilters = {}): Promise<CustomersResponse> {
   const searchParams = new URLSearchParams();
@@ -26,6 +26,60 @@ export async function fetchCustomers(filters: CustomerFilters = {}): Promise<Cus
     throw error;
   }
   
+  return response.json();
+}
+
+export interface CreateCustomerData {
+  name: string;
+  email: string;
+  phone?: string;
+  pets?: Array<{ name: string; species: string }>;
+}
+
+export async function createCustomer(data: CreateCustomerData): Promise<Customer> {
+  const response = await fetch('/api/customers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const error = new Error(errorData.message || `Failed to create customer: ${response.status} ${response.statusText}`);
+    (error as Error & { status: number; errors?: unknown }).status = response.status;
+    (error as Error & { status: number; errors?: unknown }).errors = errorData.errors;
+    throw error;
+  }
+
+  return response.json();
+}
+
+export interface CreatePetData {
+  name: string;
+  species: string;
+}
+
+export async function createPet(customerId: string, data: CreatePetData | CreatePetData[]): Promise<Customer> {
+  const body = Array.isArray(data) ? { pets: data } : data;
+  
+  const response = await fetch(`/api/customers/${customerId}/pets`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const error = new Error(errorData.message || `Failed to create pet: ${response.status} ${response.statusText}`);
+    (error as Error & { status: number; errors?: unknown }).status = response.status;
+    (error as Error & { status: number; errors?: unknown }).errors = errorData.errors;
+    throw error;
+  }
+
   return response.json();
 }
 

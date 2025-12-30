@@ -4,9 +4,7 @@ import { supabase } from './client';
 export async function generateCustomerId(): Promise<string> {
   const { data, error } = await supabase
     .from('customers')
-    .select('id')
-    .order('id', { ascending: false })
-    .limit(1);
+    .select('id');
 
   if (error) {
     throw new Error(`Failed to generate customer ID: ${error.message}`);
@@ -16,15 +14,18 @@ export async function generateCustomerId(): Promise<string> {
     return 'c1';
   }
 
-  const lastId = data[0].id;
-  const match = lastId.match(/^c(\d+)$/);
-
-  if (!match) {
-    return 'c1';
+  let maxNumber = 0;
+  for (const customer of data) {
+    const match = customer.id.match(/^c(\d+)$/);
+    if (match) {
+      const number = parseInt(match[1], 10);
+      if (number > maxNumber) {
+        maxNumber = number;
+      }
+    }
   }
 
-  const nextNumber = parseInt(match[1], 10) + 1;
-  return `c${nextNumber}`;
+  return `c${maxNumber + 1}`;
 }
 
 export async function getCustomerById(id: string): Promise<Customer | null> {

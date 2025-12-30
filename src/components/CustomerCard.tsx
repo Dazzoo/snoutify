@@ -1,6 +1,11 @@
+"use client";
+
 import { ANIMAL_OPTIONS } from '@/constants/animals';
 import { Customer } from '@/types/customer';
 import Image from 'next/image';
+import { useState } from 'react';
+import { CreatePetModal } from './modals/CreatePetModal';
+import { Button } from './ui/button';
 
 interface CustomerCardProps {
   customer: Customer;
@@ -8,6 +13,8 @@ interface CustomerCardProps {
 }
 
 export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
+  const [isCreatePetModalOpen, setIsCreatePetModalOpen] = useState(false);
+
   const getPetIcon = (species: string) => {
     const animalOption = ANIMAL_OPTIONS.find(option => option.value === species);
     return animalOption?.iconPath || null;
@@ -93,7 +100,25 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
             )}
           </div>
         </div>
+
+        {/* Add Pet Button */}
+        <div className="flex-shrink-0">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsCreatePetModalOpen(true)}
+          >
+            Add Pet
+          </Button>
+        </div>
       </div>
+
+      <CreatePetModal
+        open={isCreatePetModalOpen}
+        onOpenChange={setIsCreatePetModalOpen}
+        customerId={customer.id}
+        customerName={customer.name}
+      />
     </div>
   );
 }

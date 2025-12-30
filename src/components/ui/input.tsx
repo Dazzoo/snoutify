@@ -11,7 +11,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(
           // Layout and sizing
-          "flex rounded-md bg-background px-3 text-dark-blue",
+          "flex rounded-md bg-background px-4 py-2.5 h-10 text-dark-blue",
           // Typography
           "font-normal text-[14px] leading-[100%] tracking-[0%]",
           // File input styling
