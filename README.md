@@ -1,4 +1,4 @@
-# Snoutify - Customer and Pet Management by Yurii Shushanskyi from CarsXE API
+# Snoutify - Customer and Pet Management by Yurii Shushanskyi
 
 A responsive web app for managing customers and their pets with search and filtering capabilities.
 
