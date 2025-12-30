@@ -1,3 +1,4 @@
+import { Footer } from "@/components/Footer";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -20,8 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`m-[54px] ${inter.variable} bg-gradient-to-br from-gray-100 to-gray-200/80 min-h-screen`}>
-        {children}
+      <body className={`${inter.variable} bg-gradient-to-br from-gray-100 to-gray-200/80 min-h-screen flex flex-col`}>
+        <main className="flex-1 m-[54px]">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
