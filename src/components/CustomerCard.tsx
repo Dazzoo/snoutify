@@ -46,17 +46,19 @@ export function CustomerCard({ customer, className = "" }: CustomerCardProps) {
                   const { width, height } = getPetIconDimensions(pet.species);
                   
                   return (
-                    <div key={pet.id} className="flex items-center gap-1 px-2 py-1 bg-muted rounded border border-light">
+                    <div key={pet.id} className="flex items-center gap-1 px-2 py-1 bg-muted rounded border border-light max-w-[120px]">
                       {iconPath && (
                         <Image
                           src={iconPath}
                           alt={pet.species}
                           width={width}
                           height={height}
-                          className="w-[14px] h-[14px]"
+                          className="w-[14px] h-[14px] flex-shrink-0"
                         />
                       )}
-                      <span className="text-xs text-dark-blue truncate max-w-[50px]">{pet.name}</span>
+                      <span className="text-xs text-dark-blue break-all">
+                        {pet.name}
+                      </span>
                     </div>
                   );
                 })}

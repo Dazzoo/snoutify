@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Supercake Coding Challenge",
-  description: "Good luck!",
+  title: "Snoutify - Customer and Pet Management",
+  description: "Manage customers and their pets with ease. Search, filter, and organize your customer database with support for multiple pet species including dogs, cats, birds, hamsters, and rats.",
 };
 
 export default function RootLayout({
