@@ -35,7 +35,7 @@ export async function GET(request: Request) {
       query = query.or(`id.ilike.%${searchText}%,name.ilike.%${searchText}%,email.ilike.%${searchText}%,phone.ilike.%${searchText}%`);
     }
 
-    const { data: customers, error, count } = await query;
+    const { data: customers, error } = await query;
 
     if (error) {
       console.error('Supabase query error:', error);
@@ -58,12 +58,25 @@ export async function GET(request: Request) {
       );
     }
 
-    let filteredCustomers: Customer[] = customers.map((customer: any) => ({
+    interface SupabaseCustomer {
+      id: string;
+      name: string;
+      email: string;
+      phone: string | null;
+      created_at?: string;
+      pets?: Array<{
+        id: string;
+        name: string;
+        species: string;
+      }>;
+    }
+
+    let filteredCustomers: Customer[] = customers.map((customer: SupabaseCustomer) => ({
       id: customer.id,
       name: customer.name,
       email: customer.email,
       phone: customer.phone || '',
-      pets: (customer.pets || []).map((pet: any) => ({
+      pets: (customer.pets || []).map((pet) => ({
         id: pet.id,
         name: pet.name,
         species: pet.species,

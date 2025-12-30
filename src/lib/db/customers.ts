@@ -49,12 +49,26 @@ export async function getCustomerById(id: string): Promise<Customer | null> {
     return null;
   }
 
+  interface SupabasePet {
+    id: string;
+    name: string;
+    species: string;
+  }
+
+  interface SupabaseCustomerWithPets {
+    id: string;
+    name: string;
+    email: string;
+    phone: string | null;
+    pets?: SupabasePet[];
+  }
+
   return {
     id: customer.id,
     name: customer.name,
     email: customer.email,
     phone: customer.phone || '',
-    pets: (customer.pets || []).map((pet: any) => ({
+    pets: ((customer as SupabaseCustomerWithPets).pets || []).map((pet) => ({
       id: pet.id,
       name: pet.name,
       species: pet.species,

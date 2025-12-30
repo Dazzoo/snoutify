@@ -2,11 +2,10 @@ import { createPet, generatePetId, getCustomerById, getPetsByCustomerId, validat
 
 export async function POST(
   request: Request,
-  { params }: { params: Promise<{ id: string }> | { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const resolvedParams = await Promise.resolve(params);
-    const customerId = resolvedParams.id;
+    const { id: customerId } = await params;
     const body = await request.json();
 
     const customer = await getCustomerById(customerId);
