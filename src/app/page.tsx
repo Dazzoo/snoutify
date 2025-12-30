@@ -35,7 +35,7 @@ export default function Home() {
     <div className="w-full space-y-6">
       <QueryProvider>
       <SearchCard 
-        title="Customers and Pets"
+        title="Snoutify - Customers and Pets"
         placeholder="Search by ID, name, email or phone"
         searchValue={searchText}
         selectedSpecies={selectedSpecies}

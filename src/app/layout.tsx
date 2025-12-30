@@ -12,6 +12,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Snoutify - Customer and Pet Management",
   description: "Manage customers and their pets with ease. Search, filter, and organize your customer database with support for multiple pet species including dogs, cats, birds, hamsters, and rats.",
+  icons: {
+    icon: "/images/favicon.png",
+  },
 };
 
 export default function RootLayout({

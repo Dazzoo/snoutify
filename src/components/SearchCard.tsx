@@ -67,9 +67,18 @@ export function SearchCard({
   return (
     <div className={`w-full bg-white rounded-xl border border-gray-200/60 px-9 py-8 shadow-sm ${className}`}>
       <div className="w-full">
-        <h1 className="mb-6 text-dark-blue text-2xl font-bold">
-          {title}
-        </h1>
+        <div className="flex items-center gap-3 mb-6">
+          <Image
+            src="/images/favicon.png"
+            alt="Snoutify Logo"
+            width={128}
+            height={128}
+            className="w-8 h-8"
+          />
+          <h1 className="text-dark-blue text-2xl font-bold">
+            {title}
+          </h1>
+        </div>
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center sm:justify-between">
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center flex-1">
             <div className="relative w-full sm:w-auto">
